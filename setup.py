@@ -9,28 +9,28 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='''ckanext-eurovoc''',
+    name='''ckanext-facets''',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
     version='0.0.8',
 
-    description='''Add Eurovoc categories to CKAN's dataset schema''',
+    description='''Add new facets to CKAN''',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/ckan/ckanext-eurovoc',
+    url='https://github.com/fernandobac03/ckanext-facets.git',
 
     # Author details
-    author='''Brook Elgie''',
-    author_email='''brook.elgie@okfn.org''',
+    author='''OEG''',
+    author_email='''fernando.baculimac@alumnos.upm.es''',
 
     # Choose your license
     license='AGPL',
 
     # What does your project relate to?
-    keywords='''CKAN Eurovoc''',
+    keywords='''CKAN Facets''',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -60,9 +60,8 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
-        eurovoc=ckanext.eurovoc.plugin:EurovocPlugin
-        eurovoc_dataset=ckanext.eurovoc.plugin:EurovocDatasetPlugin
-
+        facets=ckanext.facets.plugin:FacetsPlugin
+      
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan
     ''',

@@ -8,7 +8,7 @@ import ckan.plugins.toolkit as toolkit
 DEFAULT_EUROVOC_CATEGORY_NAME = 'eurovoc_category'
 
 
-class EurovocPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
+class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     '''Provides helpers and validators to manage Eurovoc top-level categories.
 
