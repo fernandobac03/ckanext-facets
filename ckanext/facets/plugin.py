@@ -67,7 +67,7 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     def get_helpers(self):
         return {
-            'author_facet': self._author_facet_helper,
+            'author_facets': self._author_facet_helper,
             'author_facet_field_name': self._get_author_facet_field_name,
             'author_facet_label': self._eurovoc_text_output
         }
@@ -177,7 +177,7 @@ class EurovocDatasetPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
-        self.eurovoc_category = DEFAULT_EUROVOC_CATEGORY_NAME
+        self.author_facet = DEFAULT_EUROVOC_CATEGORY_NAME
 
     # IConfigurer
 
@@ -189,7 +189,7 @@ class EurovocDatasetPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def configure(self, config):
         '''Set up EurovocDatasetPlugin from config options in ckan config.
 
-        Set self.eurovoc_category to use in the package schema, if defined in
+        Set self.author_facet to use in the package schema, if defined in
         `ckanext.facets.category_field_name`.
         '''
 
@@ -197,13 +197,13 @@ class EurovocDatasetPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         category_field_name = config.get('ckanext.facets.category_field_name',
                                          None)
         if category_field_name is not None:
-            self.eurovoc_category = category_field_name
+            self.author_facet = category_field_name
 
     # IDatasetForm
 
     def _modify_package_schema(self, schema):
         schema.update({
-            self.eurovoc_category: [
+            self.author_facet: [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ]
@@ -223,7 +223,7 @@ class EurovocDatasetPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     def show_package_schema(self):
         schema = super(EurovocDatasetPlugin, self).show_package_schema()
         schema.update({
-            self.eurovoc_category: [
+            self.author_facet: [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('eurovoc_text_output'),
                 toolkit.get_validator('ignore_missing')
