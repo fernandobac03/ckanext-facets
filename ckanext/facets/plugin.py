@@ -5,7 +5,7 @@ from ckan.common import _
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
-DEFAULT_EUROVOC_CATEGORY_NAME = 'eurovoc_category'
+DEFAULT_EUROVOC_CATEGORY_NAME = 'author_facet'
 
 
 class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
@@ -28,10 +28,10 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.categories = []
 
-        # eurovoc_category is used as the field name in the package schema.
+        # author_facet is used as the field name in the package schema.
         # This can be customised in ckan config by setting a value for
         # `ckanext.eurovoc.field_name`.
-        self.eurovoc_category = DEFAULT_EUROVOC_CATEGORY_NAME
+        self.author_facet = DEFAULT_EUROVOC_CATEGORY_NAME
 
     # IConfigurable
 
@@ -41,7 +41,7 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         Get and parse a categories config file to determine the correct label
         language and additional search terms for each eurovoc category.
 
-        Set self.eurovoc_category as the field used in the package schema, if
+        Set self.author_facet as the field used in the package schema, if
         defined in `ckanext.eurovoc.category_field_name`.
         '''
         categories_config_filename = config.get('ckanext.eurovoc.categories',
@@ -61,15 +61,15 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         category_field_name = config.get('ckanext.facets.category_field_name',
                                          None)
         if category_field_name is not None:
-            self.eurovoc_category = category_field_name
+            self.author_facet = category_field_name
 
     # ITemplateHelpers
 
     def get_helpers(self):
         return {
-            'eurovoc_categories': self._eurovoc_categories_helper,
-            'eurovoc_category_field_name': self._get_eurovoc_category_field_name,
-            'eurovoc_category_label': self._eurovoc_text_output
+            'author_facet': self._author_facet_helper,
+            'author_facet_field_name': self._get_author_facet_field_name,
+            'author_facet_label': self._eurovoc_text_output
         }
 
     # IValidators
@@ -94,50 +94,50 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         return facets_dict
 
     def _update_facets(self, facets_dict):
-        '''Add `eurovoc_category_label` to facets if not already present.'''
-        if 'eurovoc_category_label' not in facets_dict:
+        '''Add `author_label` to facets if not already present.'''
+        if 'author_label' not in facets_dict:
             facets_dict.update({
-                'eurovoc_category_label': plugins.toolkit._('Eurovoc Categories')
+                'author_label': plugins.toolkit._('Author')
             })
 
     # IPackageController
 
     def before_index(self, dataset_dict):
         '''
-        Insert `eurovoc_category_label` and `vocab_eurovoc_category_terms`
-        into solr index derived from the dataset_dict's `eurovoc_category`
+        Insert `author_label` and `vocab_author_facet_terms`
+        into solr index derived from the dataset_dict's `author_facet`
         field.
         '''
-        eurovoc_category = dataset_dict.get(self.eurovoc_category, None)
-        if eurovoc_category is not None:
-            label = self._eurovoc_text_output(eurovoc_category)
+        author_facet = dataset_dict.get(self.author_facet, None)
+        if author_facet is not None:
+            label = self._eurovoc_text_output(author_facet)
             search_terms = []
             if label is not None:
                 search_terms.append(label)
-                dataset_dict['eurovoc_category_label'] = label
+                dataset_dict['author_label'] = label
 
-            additional_search_terms = self._eurovoc_additional_search_terms(eurovoc_category)
+            additional_search_terms = self._eurovoc_additional_search_terms(author_facet)
             if additional_search_terms is not None:
                 search_terms.extend(additional_search_terms)
-                dataset_dict['vocab_eurovoc_category_terms'] = search_terms
+                dataset_dict['vocab_author_facet_terms'] = search_terms
 
         return dataset_dict
 
     # Private methods
 
-    def _eurovoc_categories_helper(self):
+    def _author_facet_helper(self):
         '''
         Return a list of (id, label) tuples representing toplevel Eurovoc
         categories.
         '''
-        eurovoc_categories = [(cat['id'], cat['label']) for cat in
+        author_facet = [(cat['id'], cat['label']) for cat in
                               self.categories]
-        eurovoc_categories.insert(0, ('', _('No category')))
-        return eurovoc_categories
+        author_facet.insert(0, ('', _('No category')))
+        return author_facet
 
-    def _get_eurovoc_category_field_name(self):
+    def _get_author_facet_field_name(self):
         '''Return the eurovoc category field name for this instance.'''
-        return self.eurovoc_category
+        return self.author_facet
 
     def _get_value_for_key_in_category(self, id, key):
         '''
