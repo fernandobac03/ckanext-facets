@@ -5,7 +5,7 @@ from ckan.common import _
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
-DEFAULT_EUROVOC_CATEGORY_NAME = 'author_facet'
+DEFAULT_EUROVOC_CATEGORY_NAME = 'autores'
 
 
 class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
