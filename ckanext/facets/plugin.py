@@ -95,9 +95,9 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     def _update_facets(self, facets_dict):
         '''Add `author_label` to facets if not already present.'''
-        if 'author_label' not in facets_dict:
+        if 'autores' not in facets_dict:
             facets_dict.update({
-                'author_label': plugins.toolkit._('Author')
+                'autores': plugins.toolkit._('Autor')
             })
 
     # IPackageController
