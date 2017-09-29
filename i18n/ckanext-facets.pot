@@ -1,6 +1,6 @@
-# Translations template for ckanext-eurovoc.
+# Translations template for ckanext-facets.
 # Copyright (C) 2015 ORGANIZATION
-# This file is distributed under the same license as the ckanext-eurovoc
+# This file is distributed under the same license as the ckanext-facets
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
@@ -18,16 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: ckanext/eurovoc/plugin.py:100
-msgid "Eurovoc Categories"
+#: ckanext/facets/plugin.py:100
+msgid "Facets Categories"
 msgstr ""
 
-#: ckanext/eurovoc/plugin.py:135
+#: ckanext/facets/plugin.py:135
 msgid "No category"
 msgstr ""
 
-#: ckanext/eurovoc/templates/package/snippets/additional_info.html:6
-#: ckanext/eurovoc/templates/package/snippets/package_metadata_fields.html:5
-msgid "Eurovoc"
+#: ckanext/facets/templates/package/snippets/additional_info.html:6
+#: ckanext/facets/templates/package/snippets/package_metadata_fields.html:5
+msgid "Facets"
 msgstr ""
 

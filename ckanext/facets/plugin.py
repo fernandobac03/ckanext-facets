@@ -58,7 +58,7 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             self.categories = json.load(categories_list)
 
         # Custom category field name for dataset schema.
-        category_field_name = config.get('ckanext.eurovoc.category_field_name',
+        category_field_name = config.get('ckanext.facets.category_field_name',
                                          None)
         if category_field_name is not None:
             self.eurovoc_category = category_field_name
@@ -190,11 +190,11 @@ class EurovocDatasetPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         '''Set up EurovocDatasetPlugin from config options in ckan config.
 
         Set self.eurovoc_category to use in the package schema, if defined in
-        `ckanext.eurovoc.category_field_name`.
+        `ckanext.facets.category_field_name`.
         '''
 
         # Custom category field name for dataset schema.
-        category_field_name = config.get('ckanext.eurovoc.category_field_name',
+        category_field_name = config.get('ckanext.facets.category_field_name',
                                          None)
         if category_field_name is not None:
             self.eurovoc_category = category_field_name
