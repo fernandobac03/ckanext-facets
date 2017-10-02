@@ -114,7 +114,7 @@ class FacetsPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             search_terms = []
             if label is not None:
                 search_terms.append(label)
-                dataset_dict['author_label'] = label
+                dataset_dict['autores'] = label
 
             additional_search_terms = self._eurovoc_additional_search_terms(author_facet)
             if additional_search_terms is not None:
